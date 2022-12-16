@@ -29,7 +29,7 @@ program
         for (const w of wav) {
             results[w] = await recognize(path.resolve(w), expect, silent);
         }
-
+        //write to json file
         console.log(JSON.stringify(results, null, pretty ? 4 : 0));
 
         if (output) {
