@@ -5,6 +5,7 @@
 1. Install PNPM: <https://pnpm.io/installation>
 2. Install Node.js 18: `pnpm env use -g 18`
 3. Run `pnpm i` to install all dependencies. It will take a while since it downloads a big model (1~2 GB)
+4. Install ffmpeg: <https://ffmpeg.org/download.html>
 
 [The model (vosk-model-cn-0.22)](https://alphacephei.com/vosk/models) is released under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
 

@@ -12,7 +12,8 @@ let loaded = false;
 let model: Model;
 const converter = new OpenCC("s2t.json");
 
-export function reconize(
+//exporting the recognize function
+export function recognize(
     file: string,
     expect?: string,
     silent?: boolean,
@@ -31,7 +32,7 @@ export function reconize(
     file = convert(path.resolve(file));
 
     return new Promise((resolve) => {
-        silent || console.log(`Reconizing ${file} ...`);
+        silent || console.log(`Recognizing ${file} ...`);
         const stream = fs.createReadStream(file, { highWaterMark: 4096 });
 
         const reader = new wav.Reader();
@@ -72,7 +73,7 @@ export function reconize(
                     .flat(),
             };
 
-            silent || console.log(`Reconized ${file}`);
+            silent || console.log(`Recognized ${file}`);
             stream.close(() => {
                 resolve(final);
                 fs.rmSync(file);

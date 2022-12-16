@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { program } from "commander";
-import { reconize } from "./reconize.js";
+import { recognize } from "./recognize.js";
 
 const package_json = JSON.parse(
     fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8"),
@@ -27,7 +27,7 @@ program
 
         const results: Record<string, unknown> = {};
         for (const w of wav) {
-            results[w] = await reconize(path.resolve(w), expect, silent);
+            results[w] = await recognize(path.resolve(w), expect, silent);
         }
 
         console.log(JSON.stringify(results, null, pretty ? 4 : 0));
