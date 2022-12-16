@@ -6,6 +6,7 @@ import wav from "wav";
 import Fuse from "fuse.js";
 import { OpenCC } from "opencc";
 import { MODEL_DIR } from "./constants.js";
+//function which converts wav into string
 import { convert } from "./convert.js";
 
 let loaded = false;
@@ -14,6 +15,7 @@ const converter = new OpenCC("s2t.json");
 
 //exporting the recognize function
 export function recognize(
+    //import variables
     file: string,
     expect?: string,
     silent?: boolean,
