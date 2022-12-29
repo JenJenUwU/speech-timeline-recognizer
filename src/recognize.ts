@@ -15,7 +15,7 @@ const converter = new OpenCC("s2t.json");
 
 //exporting the recognize function
 export function recognize(
-    //import variables
+    //defining function return variables
     file: string,
     expect?: string,
     silent?: boolean,
@@ -114,4 +114,4 @@ async function extract(result: any, expect?: string) {
     } else {
         return alternatives[0];
     }
-}
+}=
