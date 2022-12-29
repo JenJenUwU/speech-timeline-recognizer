@@ -15,14 +15,16 @@ const converter = new OpenCC("s2t.json");
 
 //exporting the recognize function
 export function recognize(
-    //defining function return variables
+    //defining function input variables
     file: string,
     expect?: string,
     silent?: boolean,
 ): Promise<{
+    //defining function output variables
     text: string;
     words: { start: number; end: number; value: string }[];
 }> {
+    //if the vosk model is not loaded, load the model and return message
     if (loaded === false) {
         silent || console.log("Loading model ...");
         vosk.setLogLevel(-1);
@@ -31,29 +33,45 @@ export function recognize(
         silent || console.log("Model loaded.");
     }
 
+    //giving the file variable an absolute path value
     file = convert(path.resolve(file));
 
+
+
+    //returning a promise
     return new Promise((resolve) => {
         silent || console.log(`Recognizing ${file} ...`);
-        const stream = fs.createReadStream(file, { highWaterMark: 4096 });
 
+        //read the data in small chunks of 4096 bytes
+        const stream = fs.createReadStream(file, { highWaterMark: 4096 });
+        //create a reader class to read the wav data
         const reader = new wav.Reader();
+        //create a readable stream for the reader class
         const readable = new Readable().wrap(reader);
+        //create an event that throws error when the audio format is not wav with mono PCM
         reader.on("format", async ({ audioFormat, sampleRate, channels }) => {
             if (audioFormat != 1 || channels != 1) {
                 throw new Error("Audio file must be WAV with mono PCM.");
             }
-
+            
+            //creates a recognizer object with modified model and sample rate
             const rec = new vosk.Recognizer({ model, sampleRate });
+            //set the max alterantives to 3
             rec.setMaxAlternatives(3);
+            //enables word level recognition
             rec.setWords(true);
+            //enables partial word recognition
+            //allows the code to recognize word by word instead of the recognizing the whole audio file as one
             rec.setPartialWords(true);
 
             const results: {
+                //define properties of the result variable
                 text: string;
                 result: { start: number; end: number; word: string }[];
             }[] = [];
+            //loop through all the readable stream data
             for await (const data of readable) {
+                //if the end of the speech is reached, extract the result
                 const end_of_speech = rec.acceptWaveform(data);
                 if (end_of_speech) {
                     const result = await extract(rec.result(), expect);
@@ -63,7 +81,7 @@ export function recognize(
                     }
                 }
             }
-
+            //push the final result to the results array
             results.push(await extract(rec.finalResult(), expect));
 
             const final = {
@@ -114,4 +132,4 @@ async function extract(result: any, expect?: string) {
     } else {
         return alternatives[0];
     }
-}=
+}
