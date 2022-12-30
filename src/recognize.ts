@@ -74,8 +74,11 @@ export function recognize(
                 //if the end of the speech is reached, extract the result
                 const end_of_speech = rec.acceptWaveform(data);
                 if (end_of_speech) {
+                    //extract the result with the extract function
                     const result = await extract(rec.result(), expect);
+                    //push the result to the results array
                     results.push(result);
+                    //if the expect variable is defined, remove the recognized text from the expect variable
                     if (expect) {
                         expect = expect.slice(result.text.length);
                     }
@@ -84,6 +87,7 @@ export function recognize(
             //push the final result to the results array
             results.push(await extract(rec.finalResult(), expect));
 
+            //define the final text variable
             const final = {
                 text: results.map((r) => r.text).join(""),
                 words: results
