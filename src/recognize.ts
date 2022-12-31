@@ -56,7 +56,7 @@ export function recognize(
             
             //creates a recognizer object with modified model and sample rate
             const rec = new vosk.Recognizer({ model, sampleRate });
-            //set the max alterantives to 3
+            //set the max alternatives to 3
             rec.setMaxAlternatives(3);
             //enables word level recognition
             rec.setWords(true);
@@ -89,47 +89,60 @@ export function recognize(
 
             //define the final text variable
             const final = {
+                //text gained from mapping the total result to the text property
                 text: results.map((r) => r.text).join(""),
+                //words gained from mapping each result with the time start and end and the word itself
                 words: results
                     .map((r) =>
                         r.result.map((w) => ({ start: w.start, end: w.end, value: w.word })),
                     )
                     .flat(),
             };
-
+            //log the file being recognized
             silent || console.log(`Recognized ${file}`);
+            //close the stream and delete the file
             stream.close(() => {
                 resolve(final);
                 fs.rmSync(file);
             });
-
+            //delete the recognizer object
             rec.free();
         });
-
+        //pipe the stream to the reader object
         stream.pipe(reader);
     });
 }
 
+//function to extract the result, taking 2 arguments (result and expect)
 async function extract(result: any, expect?: string) {
+    //destructuring the result object to get the alternatives
     const { alternatives } = result;
-
+    //loop through the alternatives array
     for (let i = 0; i < alternatives.length; i++) {
+        //convert the text and word to traditional chinese
         alternatives[i].text = await converter.convertPromise(
             alternatives[i].text.replace(/\s+/g, ""),
         );
+        //loop through the result array
+        //convert the word to traditional chinese
         for (let j = 0; j < alternatives[i].result.length; j++) {
             alternatives[i].result[j].word = await converter.convertPromise(
                 alternatives[i].result[j].word,
             );
         }
+        //delete the confidence property
         delete alternatives[i].confidence;
     }
 
+
+    //if the expect argument is defined, use the fuse.js library to search for the expect argument in the alternatives array
     if (expect) {
         const fuse = new Fuse(alternatives, { keys: ["text"], threshold: 1 });
         const result = fuse.search(expect);
+        //if the result array is not empty, return the first item in the result array
         if (result.length > 0) {
             return result.map((r) => r.item)[0];
+        //else return result and text
         } else {
             return { result: [], text: "" };
         }
