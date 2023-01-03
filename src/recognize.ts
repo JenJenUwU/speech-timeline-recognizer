@@ -57,7 +57,7 @@ export function recognize(
             //creates a recognizer object with modified model and sample rate
             const rec = new vosk.Recognizer({ model, sampleRate });
             //set the max alternatives to 3
-            rec.setMaxAlternatives(3);
+            rec.setMaxAlternatives(10);
             //enables word level recognition
             rec.setWords(true);
             //enables partial word recognition

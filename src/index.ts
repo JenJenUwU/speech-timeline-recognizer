@@ -7,7 +7,7 @@ const package_json = JSON.parse(
     fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8"),
 );
 
-program.version(`${package_json.name} ${package_fasdfson.version}`);
+program.version(`${package_json.name} ${package_json.version}`);
 
 program
     .argument("<wav...>", "Path to the wav file")
