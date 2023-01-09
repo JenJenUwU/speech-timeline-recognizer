@@ -11,14 +11,13 @@ import { VERBOSE } from "./constants.js";
 export function convert(source: string, ffmpeg = "ffmpeg"): string {
     const temp = path.resolve(os.tmpdir(), `${path.basename(source)}.wav`);
     const args = [
-        "-filter:a",
-        'volume=${-10}dB, lowpass=f=,lowpass=f=',
         "-loglevel",
         "error",
         "-i",
         path.basename(source),
-        'af',
-        'volume=${0.1}dB',
+        //"-af",
+        //"loudnorm=I=-16:TP=-1.5:LRA=11",
+        //"atrim=volume>0.5",
         "-acodec",
         "pcm_s16le",
         "-ac",
