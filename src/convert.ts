@@ -17,7 +17,6 @@ export function convert(source: string, ffmpeg = "ffmpeg"): string {
         path.basename(source),
         //"-af",
         //"loudnorm=I=-16:TP=-1.5:LRA=11",
-        //"atrim=volume>0.5",
         "-acodec",
         "pcm_s16le",
         "-ac",
