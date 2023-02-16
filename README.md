@@ -1,5 +1,9 @@
 # speech-timeline-recognizer
-
+## Requirements
+1. PNPM
+2. Nodejs
+3. ffmpeg
+4. Vosk model - Chinese
 ## How to Setup
 
 1. Install PNPM: <https://pnpm.io/installation>
@@ -12,28 +16,15 @@
 ## How to Use
 
 1. Build it: `pnpm build`
-2. Run it: `pnpm start --help`
+2. Help: `pnpm start --help`
+3. Run it:
 
 ```sh
-pnpm start --expect "The expected result" "The path to the wav file"
+pnpm start -output "output json name" -expect "The expected result" "The path to the wav file"
 ```
-
+4. Example run code:
 ```sh
-pnpm start -o results.json -e "我的濾水器有點問題水位指示過高而且一直漏水能請你禮拜二上午派工程師來看看嗎這個禮拜我只有那天有空請記得跟我確認時間非常感謝" data/sub-*/*_text-01.wav
+pnpm start -o results.json -e "我的濾水器有點問題水位指示過高而且一直漏水能請你禮拜二上午派工程師來看看嗎這個禮拜我只有那天有空請記得跟我確認時間非常感謝" data/sub-*/*_text-*.wav
 ```
-
-## Docker
-
-If you have Docker installed, you can use it to run the app. The model has been included in the Docker image.
-
-```sh
-docker run --rm jacoblincool/str --help
-```
-
-> I have already built the image for `x64` and `arm64` architectures. For other architectures, you can build it yourself with `pnpm docker` command.
-
-You may want to bind volume to the container.
-
-```sh
-docker run --rm -v "$(pwd)/data:/data" jacoblincool/str -o data/results.json -e "我的濾水器有點問題水位指示過高而且一直漏水能請你禮拜二上午派工程師來看看嗎這個禮拜我只有那天有空請記得跟我確認時間非常感謝" data/sub-*/*_text-01.wav
-```
+## Known Error
+1. Type Error occurs when the audio file does not fit the expected result in a large scale (Failed recording)

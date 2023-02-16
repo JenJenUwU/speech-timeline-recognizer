@@ -21,7 +21,7 @@ program
             output = path.resolve(output);
             if (fs.existsSync(output) && !force) {
                 silent || console.error(`${output} already exists.`);
-                process.exit(1);
+                process.exit(1 )
             }
         }
 
