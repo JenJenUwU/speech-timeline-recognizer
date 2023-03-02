@@ -7,10 +7,13 @@
 ## How to Setup
 
 1. Install PNPM: <https://pnpm.io/installation>
-2. Install Node.js 18: `pnpm env use -g 18`
-3. Run `pnpm i` to install all dependencies. It will take a while since it downloads a big model (1~2 GB)
-4. Install ffmpeg: <https://ffmpeg.org/download.html>
-
+2. Install ffmpeg: <https://ffmpeg.org/download.html>
+3. Clone git repository to local directory
+```
+git clone https://github.com/JenJenUwU/speech-timeline-recognizer.git
+```
+4. Install Node.js 18: `pnpm env use -g 18`
+5. Run `pnpm i` to install all dependencies. It will take a while since it downloads a big model (1~2 GB)
 [The model (vosk-model-cn-0.22)](https://alphacephei.com/vosk/models) is released under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
 
 ## How to Use
@@ -21,7 +24,7 @@
 ```sh
 pnpm start -output "output json name" -expect "The expected result" "The path to the wav file"
 ```
-# OptionalArgument
+# Optional Argument
 ```sh
 -p: Toggle pretty
 -f: Overwrite original file
