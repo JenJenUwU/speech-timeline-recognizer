@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { program } from "commander";
 import { recognize } from "./recognize.js";
+import { exportdir } from "./export.js";
 
 const package_json = JSON.parse(
     fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8"),

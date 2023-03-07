@@ -32,7 +32,7 @@ pnpm start -output "output json name" -expect "The expected result" "The path to
 ```
 4. Example run code:
 ```sh
-pnpm start -o results.json -p -s -f -e "我的濾水器有點問題水位指示過高而且一直漏水能請你禮拜二上午派工程師來看看嗎這個禮拜我只有那天有空請記得跟我確認時間非常感謝" data/sub-*/*_text-*.wav
+pnpm start -o results.json -p -f -e "我的濾水器有點問題水位指示過高而且一直漏水能請你禮拜二上午派工程師來看看嗎這個禮拜我只有那天有空請記得跟我確認時間非常感謝" data/sub-*/*_text-*.wav
 ```
 ## Known Error
 1. Type Error occurs when the audio file does not fit the expected result in a large scale (Failed recording)
