@@ -31,7 +31,7 @@ program
         }
         //write to json file
         console.log(JSON.stringify(results, null, pretty ? 4 : 0));
-
+    
         if (output) {
             fs.writeFileSync(output, JSON.stringify(results, null, pretty ? 4 : 0));
             silent || console.log(`Results is written to ${output}`);
