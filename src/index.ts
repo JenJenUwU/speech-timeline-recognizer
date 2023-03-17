@@ -39,7 +39,6 @@ program
             console.log(JSON.stringify(results, null, pretty ? 4 : 0));
         }
     }); 
-
 program.parse();
 
 interface Options {
