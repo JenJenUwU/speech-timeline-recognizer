@@ -19,7 +19,8 @@ git clone https://github.com/JenJenUwU/speech-timeline-recognizer.git
 ## How to Use
 
 1. Help: `pnpm start --help`
-2. Run it:
+2. Build it 'pnpm build'
+3. Run it:
 ```sh
 pnpm start -output "output json name" -expect "The expected result" "The path to the wav file"
 ```
