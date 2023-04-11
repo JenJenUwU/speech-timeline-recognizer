@@ -38,6 +38,26 @@ program
         } else {
             console.log(JSON.stringify(results, null, pretty ? 4 : 0));
         }
+        
+        const json = JSON.parse(fs.readFileSync('${output}', 'utf-8'));
+
+        const outputDir = 'output';
+        if (!fs.existsSync(outputDir)) {
+            fs.mkdirSync(outputDir);
+        }
+
+        for (const file in json) {
+            const filedir = file.replace(/[/.]/g,"_");
+            const filename = `output/${filedir}.txt`;
+            fs.writeFileSync(filename, '');
+            const words = json[file].words;
+            for (const word of words) {
+                const outputdata = (`${word.value}\t${word.start}\t${word.end}`);
+                const strinifydata = JSON.stringify(outputdata);
+                fs.appendFileSync(filename, JSON.parse(strinifydata));
+                fs.appendFileSync(filename, "\n");
+            }
+        }      
     }); 
 program.parse();
 
