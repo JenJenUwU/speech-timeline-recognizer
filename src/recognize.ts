@@ -85,7 +85,7 @@ export function recognize(
                 }
             }
             //push the final result to the results array
-            results.push(await extract(rec.finalResult(), expect));
+            //results.push(await extract(rec.finalResult(), expect));
 
             //define the final text variable
             const final = {
