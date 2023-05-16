@@ -35,13 +35,9 @@ export function recognize(
 
     //giving the file variable an absolute path value
     file = convert(path.resolve(file));
-
-
-
     //returning a promise
     return new Promise((resolve) => {
         silent || console.log(`Recognizing ${file} ...`);
-
         //read the data in small chunks of 4096 bytes
         const stream = fs.createReadStream(file, { highWaterMark: 4096 });
         //create a reader class to read the wav data
@@ -85,7 +81,7 @@ export function recognize(
                 }
             }
             //push the final result to the results array
-            //results.push(await extract(rec.finalResult(), expect));
+            results.push(await extract(rec.finalResult(), expect));
 
             //define the final text variable
             const final = {
