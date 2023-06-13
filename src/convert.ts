@@ -16,7 +16,7 @@ export function convert(source: string, ffmpeg = "ffmpeg"): string {
         "-i",
         path.basename(source),
         "-af",
-        "agate=range=0:ratio=100:threshold=0.01",
+        "agate=range=0:ratio=100:threshold=0.01, dynaudnorm=p=0.5:m=100:s=12:g=15, loudnorm=I=-10:LRA=11:TP=-1",
         "-acodec",
         "pcm_s16le",
         "-ac",

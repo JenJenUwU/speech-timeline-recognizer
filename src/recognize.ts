@@ -8,6 +8,7 @@ import { OpenCC } from "opencc";
 import { MODEL_DIR } from "./constants.js";
 //function which converts wav into string
 import { convert } from "./convert.js";
+import { privateEncrypt } from "node:crypto";
 
 let loaded = false;
 let model: Model;
@@ -58,8 +59,7 @@ export function recognize(
             rec.setWords(true);
             //enables partial word recognition
             //allows the code to recognize word by word instead of the recognizing the whole audio file as one
-            rec.setPartialWords(true);
-
+            rec.setPartialWords(true)
             const results: {
                 //define properties of the result variable
                 text: string;
@@ -74,6 +74,7 @@ export function recognize(
                     const result = await extract(rec.result(), expect);
                     //push the result to the results array
                     results.push(result);
+                    console.log(result)
                     //if the expect variable is defined, remove the recognized text from the expect variable
                     if (expect) {
                         expect = expect.slice(result.text.length);
@@ -84,6 +85,7 @@ export function recognize(
             //results.push(await extract(rec.finalResult(), expect));
 
             //define the final text variable
+
             const final = {
                 //text gained from mapping the total result to the text property
                 text: results.map((r) => r.text).join(""),
