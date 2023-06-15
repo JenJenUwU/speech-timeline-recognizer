@@ -15,7 +15,6 @@ const audioData = fs.readFileSync(audioFilePath);
 const segmentDuration = 10; // Segment duration in seconds
 const segmentSize = sampleRate * segmentDuration;
 
-let offset = 0;
 let remainingAudio = audioData;
 const partialResults: any[] = [];
 
