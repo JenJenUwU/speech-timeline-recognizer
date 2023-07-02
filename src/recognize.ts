@@ -6,9 +6,7 @@ import wav from "wav";
 import Fuse from "fuse.js";
 import { OpenCC } from "opencc";
 import { MODEL_DIR } from "./constants.js";
-//function which converts wav into string
 import { convert } from "./convert.js";
-import { privateEncrypt } from "node:crypto";
 
 let loaded = false;
 let model: Model;
@@ -73,17 +71,16 @@ export function recognize(
                     //extract the result with the extract function
                     const result = await extract(rec.result(), expect);
                     //push the result to the results array
-                    results.push(result);
-                    console.log(result)
-                    //if the expect variable is defined, remove the recognized text from the expect variable
+                    results.push(result);                    //if the expect variable is defined, remove the recognized text from the expect variable
                     if (expect) {
                         expect = expect.slice(result.text.length);
                     }
                 }
             }
             //push the final result to the results array
-            //results.push(await extract(rec.finalResult(), expect));
-
+            console.log(results)
+            results.push(await extract(rec.finalResult(), expect));
+            console.log(results)
             //define the final text variable
 
             const final = {
